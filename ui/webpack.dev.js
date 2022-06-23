@@ -2,6 +2,7 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || "8888";
@@ -11,10 +12,12 @@ module.exports = merge(common('development'), {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        {from: "./src/version.js"},
-        {from: "./src/config.js"},
-        {from: "./src/favicon.ico"},
-      ]})
+        { from: "./src/version.js" },
+        { from: "./src/config.js" },
+        { from: "./src/favicon.ico" },
+      ]
+    }),
+    new MonacoWebpackPlugin()
   ],
   devServer: {
     contentBase: "./dist",
